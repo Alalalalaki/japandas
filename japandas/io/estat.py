@@ -53,7 +53,7 @@ class EStatReader(_BaseReader):
 
     @property
     def url(self):
-        return 'http://api.e-stat.go.jp/rest/2.0/app/getStatsData'
+        return 'http://api.e-stat.go.jp/rest/2.1/app/getStatsData'
 
     @property
     def params(self):
@@ -67,7 +67,7 @@ class EStatReader(_BaseReader):
 
     def read(self):
         """ read data """
-        if isinstance(self.symbols, pd.compat.string_types):
+        if isinstance(self.symbols, str):
             if len(self.symbols) == 8:
                 return self.get_estat_list()
 
@@ -131,7 +131,7 @@ class EStatReader(_BaseReader):
         return df
 
     def get_estat_list(self):
-        url = 'http://api.e-stat.go.jp/rest/2.0/app/getStatsList'
+        url = 'http://api.e-stat.go.jp/rest/2.1/app/getStatsList'
         params = {'appId': self.appid, 'lang': 'J', 'statsCode': self.symbols}
 
         out = self._read_url_as_StringIO(url, params=params)
